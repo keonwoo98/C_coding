@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 
 // FirstFileWrite
 // int main(void)
@@ -157,14 +158,150 @@
 // }
 
 // 문제 1-3
-int main(void)
+// int main(void)
+// {
+//     char str[50];
+//     FILE * fp=fopen("mystory.txt", "rt");
+
+//     while(fgets(str, sizeof(str), fp)!=NULL)
+//         printf("%s", str);
+
+//     fclose(fp);
+//     return 0;
+// }
+
+// BinaryFileCopy
+// int main(void)
+// {
+//     FILE * src=fopen("bin.bin", "rb");
+//     FILE * des=fopen("bin2.bin", "wb");
+//     char buf[20];
+//     int readCnt;
+
+//     if(src==NULL || des==NULL)
+//     {
+//         puts("File open fail!");
+//         return -1;
+//     }
+
+//     while(1)
+//     {
+//         readCnt=fread((void*)buf, 1, sizeof(buf), src);
+
+//         if(readCnt<sizeof(buf))
+//         {
+//             if(feof(src)!=0)
+//             {
+//                 fwrite((void*)buf, 1, readCnt, des);
+//                 puts("File copied!");
+//                 break;
+//             }
+//             else
+//                 puts("File uncopied!");
+//             break;
+//         }
+//         fwrite((void*)buf, 1, sizeof(buf), des);
+//     }
+//     fclose(src);
+//     fclose(des);
+//     return 0;
+// }
+
+// ComplexFileWrite
+// int main(void)
+// {
+//     char name[10];
+//     char sex;
+//     int age;
+
+//     FILE * fp=fopen("friend.txt", "wt");
+//     int i;
+
+//     for(i=0; i<3; i++)
+//     {
+//         printf("name sex age: ");
+//         scanf("%s %c %d", name, &sex, &age);
+//         getchar();
+//         fprintf(fp, "%s %c %d\n", name, sex, age);
+//     }
+//     fclose(fp);
+//     return 0;
+// }
+
+// ComplexFileRead
+// int main(void)
+// {
+//     char name[10];
+//     char sex;
+//     int age;
+
+//     FILE * fp=fopen("friend.txt", "rt");
+//     int ret;
+
+//     while(1)
+//     {
+//         ret=fscanf(fp, "%s %c %d", name, &sex, &age);
+//         if(ret==EOF)
+//             break;
+//         printf("%s %c %d\n", name, sex, age);
+//     }
+//     fclose(fp);
+//     return 0;
+// }
+
+// StructFileWriteRead
+// typedef struct
+// {
+//     char name[10];
+//     char sex;
+//     int age;
+// } Friend;
+
+// int main(void)
+// {
+//     FILE * fp;
+//     Friend myfren1;
+//     Friend myfren2;
+
+//     fp=fopen("friend.bin", "wb");
+//     printf("name, sex, age: ");
+//     scanf("%s %c %d", myfren1.name, &(myfren1.sex), &(myfren1.age));
+//     fwrite((void*)&myfren1, sizeof(myfren1), 1, fp);
+//     fclose(fp);
+
+//     fp=fopen("friend.bin", "rb");
+//     fread((void*)&myfren2, sizeof(myfren2), 1, fp);
+//     printf("%s %c %d\n", myfren2.name, myfren2.sex, myfren2.age);
+//     fclose(fp);
+//     return 0;
+// }
+
+// 문제 2-1
+long GetFileSize(FILE * fp);
+
+int main (void)
 {
-    char str[50];
+    char str[100];
     FILE * fp=fopen("mystory.txt", "rt");
-
-    while(fgets(str, sizeof(str), fp)!=NULL)
-        printf("%s", str);
-
+    fgets(str, 100, fp);
+    fputs(str, stdout);
+    printf("File size: %ld\n", GetFileSize(fp));
+    fgets(str, 100, fp);
+    fputs(str, stdout);
+    printf("File size: %ld\n", GetFileSize(fp));
+    fgets(str, 100, fp);
+    fputs(str, stdout);
     fclose(fp);
     return 0;
+}
+long GetFileSize(FILE * fp)
+{
+    long fpos;
+    long fsize;
+    fpos=ftell(fp);
+
+    fseek(fp, 0, SEEK_END);
+    fsize=ftell(fp);
+    fseek(fp, fpos, SEEK_SET);
+    return fsize;
 }
