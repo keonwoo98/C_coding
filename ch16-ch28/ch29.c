@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 // 문제 1
 // typedef struct
@@ -109,4 +110,94 @@
 //     return 0;
 // }
 
+// text.txt 만들기
+// int main(void)
+// {
+//     FILE * text=fopen("text1.txt", "wt");
+//     fputs("apple\n", text);
+//     fputs("purple\n", text);
+//     fputs("admire\n", text);
+//     fputs("community\n", text);
+//     fputs("perspective\n", text);
+//     fputs("administer", text);
+//     fclose(text);
+//     return 0;
+// }
+
 // 문제 4
+// int main(void)
+// {
+//     int a_count=0, p_count=0, ch=0;
+//     char word[50];
+
+//     FILE * fp=fopen("text.txt", "rt");
+//     if(fp==NULL)
+//     {
+//         puts("File open fail!\n");
+//         return -1;
+//     }
+
+//     do
+//     {
+//         fscanf(fp, "%s", word);
+//         if(word[0]=='A' || word[0]=='a')
+//             a_count++;
+//         else if(word[0]=='P' || word[0]=='p')
+//             p_count++;
+//     } while ((ch = fgetc(fp)) != EOF);
+
+//     printf("word starts with 'a': %d words\n", a_count);
+//     printf("word starts with 'p': %d words", p_count);
+//     fclose(fp);
+//     return 0;
+// }
+
+// text.txt 만들기
+// int main(void)
+// {
+//     FILE * text=fopen("text.txt", "wt");
+//     fputs("apple\n", text);
+//     fputs("purple\n", text);
+//     fputs("admire\n", text);
+//     fputs("community\n", text);
+//     fputs("perspective\n", text);
+//     fputs("administer", text);
+//     fclose(text);
+//     return 0;
+// }
+
+// 문제 5
+int main(void)
+{
+    char ch, dh;
+
+    FILE * fp1=fopen("text.txt", "rt");
+    FILE * fp2=fopen("text1.txt", "rt");
+
+    if(fp1==NULL || fp2==NULL)
+    {
+        printf("File open error\n");
+        return -1;
+    }
+
+    while(1)
+    {
+        ch=fgetc(fp1);
+        dh=fgetc(fp2);
+
+        if(ch!=dh)
+        {
+            printf("두 개의 파일은 일치하지 않습니다.\n");
+            break;
+        }
+        else if(feof(fp1)!=0 && feof(fp2)!=0)
+        {
+            printf("두 개의 파일은 완전히 일치합니다.\n");
+            break;
+        }
+    }
+
+    fclose(fp1);
+    fclose(fp2);
+    return 0;
+}
