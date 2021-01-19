@@ -78,62 +78,110 @@
 // }
 
 // 문제 3
+// int GetSpace(char str[])
+// {
+//     int len, i;
+//     len=strlen(str);
+//     for(i=0; i<len; i++)
+//     {
+//         if(str[i]==' ')
+//             return i;
+//     }
+//     return -1;
+// }
+// int CompName(char str1[], char str2[])
+// {
+//     int idx1=GetSpace(str1);
+//     int idx2=GetSpace(str2);
+
+//     if(idx1!=idx2)
+//         return 0;
+//     else
+//         return !strncmp(str1, str2, idx1);
+// }
+// int CompAge(char str1[], char str2[])
+// {
+//     int idx1=GetSpace(str1);
+//     int idx2=GetSpace(str2);
+//     int ag1, ag2;
+
+//     ag1=atoi(&str1[idx1+1]);
+//     ag2=atoi(&str2[idx2+1]);
+
+//     if(ag1==ag2)
+//         return 1;
+//     else
+//         return 0;
+// }
+// int main(void)
+// {
+//     char str1[20];
+//     char str2[20];
+
+//     printf("person 1: ");
+//     fgets(str1, sizeof(str1), stdin);
+//     str1[strlen(str1)-1]=0;
+//     printf("person 2: ");
+//     fgets(str2, sizeof(str2), stdin);
+//     str2[strlen(str2)-1]=0;
+
+//     if(CompName(str1, str2))
+//         puts("Same Name");
+//     else
+//         puts("Different Name");
+    
+//     if(CompAge(str1, str2))
+//         puts("Same Age");
+//     else
+//         puts("Different Age");
+    
+//     return 0;
+// }
+
 int GetSpace(char str[])
 {
-    int len, i;
-    len=strlen(str);
-    for(i=0; i<len; i++)
+    int len=strlen(str);
+    for(int i=0; i<len; i++)
     {
         if(str[i]==' ')
             return i;
     }
     return -1;
 }
-int CompName(char str1[], char str2[])
+void nameComp(char str1[], char str2[])
 {
-    int idx1=GetSpace(str1);
-    int idx2=GetSpace(str2);
-
-    if(idx1!=idx2)
-        return 0;
+    if(GetSpace(str1)!=GetSpace(str2))
+        puts("Different name");
     else
-        return !strncmp(str1, str2, idx1);
+    {
+        if(!strncmp(str1, str2, GetSpace(str1)))
+            puts("Same name");
+        else
+            puts("Different name");
+    }
 }
-int CompAge(char str1[], char str2[])
+void ageComp(char str1[], char str2[])
 {
-    int idx1=GetSpace(str1);
-    int idx2=GetSpace(str2);
-    int ag1, ag2;
-
-    ag1=atoi(&str1[idx1+1]);
-    ag2=atoi(&str2[idx2+1]);
-
-    if(ag1==ag2)
-        return 1;
+    int ag1=GetSpace(str1);
+    int ag2=GetSpace(str2);
+    if(atoi(&str1[ag1+1])==atoi(&str2[ag2+1]))
+        puts("Same age");
     else
-        return 0;
+        puts("Different age");
 }
 int main(void)
 {
-    char str1[20];
-    char str2[20];
+    char str1[50];
+    char str2[50];
 
-    printf("person 1: ");
+    printf("User1 info: ");
     fgets(str1, sizeof(str1), stdin);
     str1[strlen(str1)-1]=0;
-    printf("person 2: ");
+    printf("User2 info: ");
     fgets(str2, sizeof(str2), stdin);
     str2[strlen(str2)-1]=0;
 
-    if(CompName(str1, str2))
-        puts("Same Name");
-    else
-        puts("Different Name");
-    
-    if(CompAge(str1, str2))
-        puts("Same Age");
-    else
-        puts("Different Age");
-    
+    nameComp(str1, str2);
+    ageComp(str1, str2);
     return 0;
 }
