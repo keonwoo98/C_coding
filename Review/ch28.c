@@ -149,7 +149,7 @@ int main(void)
 
     if(fp1==NULL || fp2==NULL)
     {
-        puts("FIle open error");
+        puts("File open error");
         return -1;
     }
 
