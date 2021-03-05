@@ -215,7 +215,7 @@ int main(void)
         int strike=0;
         int ball=0;
         printf("3개의 숫자 선택: ");
-        scanf("%d%d%d", &me[0], &me[1], &me[2]);
+        scanf("%d %d %d", &me[0], &me[1], &me[2]);
 
         for(i=0; i<3; i++)
         {
@@ -234,5 +234,5 @@ int main(void)
             break;
         }
     }
-    
+    return 0;
 }
